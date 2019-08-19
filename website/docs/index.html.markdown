@@ -37,10 +37,13 @@ resource "cloudflare_page_rule" "www" {
 
 The following arguments are supported:
 
-* `email` - (Required) The email associated with the account. This can also be
+* `email` - (Optional) The email associated with the account. This can also be
   specified with the `CLOUDFLARE_EMAIL` shell environment variable.
-* `key` - (Required) The Cloudflare API key. This can also be specified
+* `key` - (Optional) The Cloudflare API key. This can also be specified
   with the `CLOUDFLARE_KEY` shell environment variable.
+* `token` - (Optional) The Cloudflare API Token. This can also be specified with
+  the `CLOUDFLARE_TOKEN` shell environment variable. This is an alternative to
+  `email`+`key`. If both are specified, `token` will be used over `email`+`key` fields.
 * `rps` - (Optional) RPS limit to apply when making calls to the API. Default: 4.
   This can also be specified with the `CLOUDFLARE_RPS` shell environment variable.
 * `retries` - (Optional) Maximum number of retries to perform when an API request fails. Default: 3.
