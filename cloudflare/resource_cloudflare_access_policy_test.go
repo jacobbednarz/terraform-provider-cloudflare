@@ -3,6 +3,7 @@ package cloudflare
 import (
 	"fmt"
 	"os"
+	"reflect"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
@@ -348,4 +349,29 @@ func testAccessPolicyCommonNameConfig(resourceID, zone, accountID string) string
 		}
 
 	`, resourceID, zone, accountID)
+}
+
+func testCloudflareAccessPolicyStateDataV0() map[string]interface{} {
+	return map[string]interface{}{
+		"name": "test",
+	}
+}
+
+func testAccessPolicyStateDataV1() map[string]interface{} {
+	v0 := testCloudflareAccessPolicyStateDataV0()
+	return map[string]interface{}{
+		"name": v0,
+	}
+}
+
+func TestCloudflareAccessPolicyStateUpgradeV0(t *testing.T) {
+	expected := testAccessPolicyStateDataV1()
+	actual, err := resourceCloudflareAccessPolicyStateUpgradeV0(testCloudflareAccessPolicyStateDataV0(), nil)
+	if err != nil {
+		t.Fatalf("error migrating state: %s", err)
+	}
+
+	if !reflect.DeepEqual(expected, actual) {
+		t.Fatalf("\n\nexpected:\n\n%#v\n\ngot:\n\n%#v\n\n", expected, actual)
+	}
 }

@@ -20,6 +20,15 @@ func resourceCloudflareAccessPolicy() *schema.Resource {
 			State: resourceCloudflareAccessPolicyImport,
 		},
 
+		SchemaVersion: 1,
+		StateUpgraders: []schema.StateUpgrader{
+			{
+				Type:    resourceCloudflareAccessPolicyResourceV0().CoreConfigSchema().ImpliedType(),
+				Upgrade: resourceCloudflareAccessPolicyStateUpgradeV0,
+				Version: 0,
+			},
+		},
+
 		Schema: map[string]*schema.Schema{
 			"application_id": {
 				Type:     schema.TypeString,
