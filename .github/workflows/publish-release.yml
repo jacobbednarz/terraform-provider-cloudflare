@@ -51,6 +51,6 @@ jobs:
         uses: goreleaser/goreleaser-action@v6.0.0
         with:
           version: latest
-          args: 'release --clean --debug --skip "announce,publish" --timeout 3h'
+          args: 'release --clean --skip "announce,publish" --timeout 3h'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
