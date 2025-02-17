@@ -40,16 +40,6 @@ checksum:
     - glob: "terraform-registry-manifest.json"
       name_template: "{{ .ProjectName }}_{{ .Version }}_manifest.json"
   algorithm: sha256
-signs:
-  - artifacts: checksum
-    args:
-      - "--batch"
-      - "--local-user"
-      - "{{ .Env.GPG_FINGERPRINT }}" # set this environment variable for your signing key
-      - "--output"
-      - "${signature}"
-      - "--detach-sign"
-      - "${artifact}"
 release:
   extra_files:
     - glob: "terraform-registry-manifest.json"
@@ -58,7 +48,3 @@ changelog:
   disable: true
 snapshot:
   version_template: "{{.ShortCommit}}-dev"
-announce:
-  discord:
-    enabled: true
-    message_template: "{{ .ProjectName }} ({{ .Version }}) has been released. See the release notes at {{ .ReleaseURL }}"
