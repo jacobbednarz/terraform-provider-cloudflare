@@ -16,7 +16,9 @@ jobs:
           restore-keys: ${{ runner.os }}-go-
           path: |
             ~/.cache/go-build
-            ~/go/pkg/mod          
+            ~/go/pkg/mod   
+            ~/Library/Caches/go-build
+            ~\AppData\Local\go-build
       - name: Setup go
         uses: actions/setup-go@v5
         with:
